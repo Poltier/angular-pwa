@@ -1,0 +1,42 @@
+<div class="container">
+  <h1>Books by J.K. Rowling</h1>
+
+  <!-- Botones de alternancia -->
+  <div class="view-toggle">
+  <button mat-icon-button [class.active]="isCardView" (click)="isCardView = true">
+    <mat-icon aria-label="Grid view">view_module</mat-icon>
+  </button>
+  <button mat-icon-button [class.active]="!isCardView" (click)="isCardView = false">
+    <mat-icon aria-label="List view">view_list</mat-icon>
+  </button>
+  </div>
+
+
+  <!-- Spinner de carga -->
+  <mat-spinner *ngIf="isLoading" class="custom-spinner"></mat-spinner>
+
+  <!-- Vista de cards -->
+  <div *ngIf="isCardView; else tableView" class="card-container">
+    <mat-card *ngFor="let book of books" class="book-card" (click)="goToBook(book.key)">
+      <mat-card-header>
+        <mat-card-title>{{ book.title }}</mat-card-title>
+      </mat-card-header>
+      <img mat-card-image [src]="getCoverImageUrl(book.cover_i)" alt="{{ book.title }}" style="width: 100px; height: auto;">
+      <mat-card-content>
+        <!-- Contenido adicional si es necesario -->
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Vista de tabla -->
+  <ng-template #tableView>
+    <table mat-table [dataSource]="books" class="mat-elevation-z8">
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> Title </th>
+        <td mat-cell *matCellDef="let book" (click)="goToBook(book.key)" class="book-list-row">{{ book.title }}</td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </ng-template>
+</div>

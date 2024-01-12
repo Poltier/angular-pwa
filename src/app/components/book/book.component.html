@@ -1,0 +1,49 @@
+<div class="container mt-5">
+  <div *ngIf="book" class="row animate_animated animate_bounce animate_fadeIn">
+    <div class="col-md-9">
+      <h2>{{ book.title }}</h2>
+      <div class="img-container">
+        <img class="rounded" [src]="getCoverImageUrl(book.cover_i)" alt="{{ book.title }}">
+      </div>
+      <p><strong>Description</strong> {{ book.description || 'Description not available' }}</p>
+      <button mat-raised-button color="primary" class="detail-button" (click)="toggleDetails()">Show all details</button>
+      <mat-accordion multi="true" *ngIf="showDetails">
+        <mat-expansion-panel class="expansion-panel">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <strong>Subjects</strong>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>{{ getSubjects() }}</p>
+        </mat-expansion-panel>
+        <mat-expansion-panel class="expansion-panel">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <strong>Subject Places</strong>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>{{ getSubjectPlaces() }}</p>
+        </mat-expansion-panel>
+        <mat-expansion-panel class="expansion-panel">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <strong>Created</strong>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>{{ getCreatedDate() }}</p>
+        </mat-expansion-panel>
+        <mat-expansion-panel class="expansion-panel">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <strong>Last Modified</strong>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>{{ getLastModifiedDate() }}</p>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+    <div class="col-md-3">
+      <a class="btn btn-danger" routerLink="/">Back</a>
+    </div>
+  </div>
+</div>
